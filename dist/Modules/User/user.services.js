@@ -16,8 +16,12 @@ const allUser = async () => {
 };
 exports.allUser = allUser;
 const getAUser = async (id) => {
-    console.log(id);
-    const result = await user_model_1.default.findOne({ userId: id });
-    return result;
+    const user = await user_model_1.default.isUserExist(id);
+    if (user) {
+        return user;
+    }
+    else {
+        throw new Error("user doesn't exist");
+    }
 };
 exports.getAUser = getAUser;

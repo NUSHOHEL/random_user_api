@@ -9,8 +9,11 @@ export const allUser = async () => {
   const result = await User.find();
   return result;
 };
-export const getAUser = async (id:string) => {
-  console.log(id)
-  const result = await User.findOne({userId:id});
-  return result;
+export const getAUser = async (id: number) => {
+  const user = await User.isUserExist(id);
+  if (user) {
+    return user;
+  } else {
+    throw new Error("user doesn't exist");
+  }
 };

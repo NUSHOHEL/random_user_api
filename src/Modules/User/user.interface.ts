@@ -1,3 +1,10 @@
+import { Model, Types } from "mongoose";
+
+interface Iorder {
+  productName: string;
+  price: number;
+  quantity: number;
+}
 export interface IUser {
   userId: number;
   username: string;
@@ -9,15 +16,15 @@ export interface IUser {
   age: number;
   email: string;
   isActive: boolean;
-  hobbies: string[];
+  hobbies:Types.Array<string>;
   address: {
     street: string;
     city: string;
     country: string;
   };
-  orders: {
-    productName: string;
-    price: number;
-    quantity: number;
-  }[];
+  orders: Types.DocumentArray<Iorder>;
+}
+
+export interface userModel extends Model<IUser> {
+  isUserExist(id: number): Promise<IUser | null>;
 }

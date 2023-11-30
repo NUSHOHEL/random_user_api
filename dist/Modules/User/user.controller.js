@@ -4,12 +4,17 @@ exports.getUserById = exports.getAllUser = exports.postUser = void 0;
 const user_services_1 = require("./user.services");
 const postUser = async (req, res) => {
     const user = req.body;
-    const result = await (0, user_services_1.createUser)(user);
-    res.status(200).json({
-        success: true,
-        message: "studen is created successfully",
-        data: result,
-    });
+    try {
+        const result = await (0, user_services_1.createUser)(user);
+        res.status(200).json({
+            success: true,
+            message: "studen is created successfully",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.json(error);
+    }
 };
 exports.postUser = postUser;
 const getAllUser = async (req, res) => {
@@ -18,8 +23,20 @@ const getAllUser = async (req, res) => {
 };
 exports.getAllUser = getAllUser;
 const getUserById = async (req, res) => {
-    const id = req.params.id;
-    const result = await (0, user_services_1.getAUser)(id);
-    console.log(result);
+    const id = Number(req.params.id);
+    try {
+        const result = await (0, user_services_1.getAUser)(id);
+        res.json(result);
+    }
+    catch (error) {
+        res.status(400).json({
+            success: false,
+            message: "User not found",
+            error: {
+                code: 404,
+                description: "User not found!",
+            },
+        });
+    }
 };
 exports.getUserById = getUserById;
