@@ -1,11 +1,8 @@
-import { Model, Types } from "mongoose";
+import { Model } from "mongoose";
 
-interface Iorder {
-  productName: string;
-  price: number;
-  quantity: number;
-}
-export interface IUser {
+
+
+export interface IUser  {
   userId: number;
   username: string;
   password: string;
@@ -16,15 +13,20 @@ export interface IUser {
   age: number;
   email: string;
   isActive: boolean;
-  hobbies:Types.Array<string>;
+  hobbies: [string];
   address: {
     street: string;
     city: string;
     country: string;
   };
-  orders: Types.DocumentArray<Iorder>;
+  orders: {
+    productName: string;
+    price: number;
+    quantity: number;
+  }[];
 }
 
-export interface userModel extends Model<IUser> {
-  isUserExist(id: number): Promise<IUser | null>;
+
+export interface staticMethos extends Model<IUser> {
+  isUserExist(id:number):Promise<IUser | null>;
 }

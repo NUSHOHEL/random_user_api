@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserById = exports.getAllUser = exports.postUser = void 0;
+exports.updateUserByid = exports.getUserById = exports.getAllUser = exports.postUser = void 0;
 const user_services_1 = require("./user.services");
 const postUser = async (req, res) => {
-    const user = req.body;
     try {
+        const user = req.body;
         const result = await (0, user_services_1.createUser)(user);
         res.status(200).json({
             success: true,
@@ -19,17 +19,25 @@ const postUser = async (req, res) => {
 exports.postUser = postUser;
 const getAllUser = async (req, res) => {
     const result = await (0, user_services_1.allUser)();
-    res.send(result);
+    res.json({
+        success: true,
+        message: "Users fetched successfully!",
+        data: result,
+    });
 };
 exports.getAllUser = getAllUser;
 const getUserById = async (req, res) => {
     const id = Number(req.params.id);
     try {
         const result = await (0, user_services_1.getAUser)(id);
-        res.json(result);
+        res.json({
+            success: true,
+            message: "User fetched successfully!",
+            data: result,
+        });
     }
     catch (error) {
-        res.status(400).json({
+        res.json({
             success: false,
             message: "User not found",
             error: {
@@ -40,3 +48,26 @@ const getUserById = async (req, res) => {
     }
 };
 exports.getUserById = getUserById;
+const updateUserByid = async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        const updateData = req.body;
+        const result = await (0, user_services_1.updateUser)(updateData, id);
+        res.json({
+            success: true,
+            message: "User updated successfully!",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.json({
+            success: false,
+            message: "User not found",
+            error: {
+                code: 404,
+                description: "User not found!",
+            },
+        });
+    }
+};
+exports.updateUserByid = updateUserByid;
