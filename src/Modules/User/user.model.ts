@@ -4,7 +4,7 @@ import { IUser, staticMethos } from "./user.interface";
 
 const userSchema = new mongoose.Schema<IUser>(
   {
-    userId: { type: Number, required: true, },
+    userId: { type: Number, required: true, unique: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     fullName: {
@@ -44,8 +44,8 @@ const userSchema = new mongoose.Schema<IUser>(
 userSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, 10);
 });
-// userSchema.post('save',(doc,next)=>{
-//     const user = doc.toObject()
-//     delete user.password
-// })
+userSchema.post("save", async (doc, next) => {
+  doc.set('password',undefined);
+  next();
+});
 export default mongoose.model<IUser, staticMethos>("User", userSchema);

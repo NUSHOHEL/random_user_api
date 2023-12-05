@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const userSchema = new mongoose_1.default.Schema({
-    userId: { type: Number, required: true, },
+    userId: { type: Number, required: true, unique: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     fullName: {
@@ -44,8 +44,8 @@ const userSchema = new mongoose_1.default.Schema({
 userSchema.pre("save", async function () {
     this.password = await bcrypt_1.default.hash(this.password, 10);
 });
-// userSchema.post('save',(doc,next)=>{
-//     const user = doc.toObject()
-//     delete user.password
-// })
+userSchema.post("save", async (doc, next) => {
+    doc.set('password', undefined);
+    next();
+});
 exports.default = mongoose_1.default.model("User", userSchema);

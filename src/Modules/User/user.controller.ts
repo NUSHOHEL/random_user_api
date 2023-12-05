@@ -1,11 +1,15 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import * as userservice from "./user.services";
 import { userValidator } from "./user.validation";
 
-export const postUser = async (req: Request, res: Response) => {
+export const postUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const user = req.body;
-    const validUser = userValidator.parse(user)
+    const validUser = userValidator.parse(user);
     const result = await userservice.createUser(validUser);
     res.status(200).json({
       success: true,
@@ -13,7 +17,7 @@ export const postUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 };
 export const getAllUser = async (req: Request, res: Response) => {

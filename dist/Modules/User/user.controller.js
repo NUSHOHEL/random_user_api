@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.totalOrderPrice = exports.findUserOrders = exports.updateUserOrders = exports.deleteUser = exports.updateUserByid = exports.getUserById = exports.getAllUser = exports.postUser = void 0;
 const userservice = __importStar(require("./user.services"));
 const user_validation_1 = require("./user.validation");
-const postUser = async (req, res) => {
+const postUser = async (req, res, next) => {
     try {
         const user = req.body;
         const validUser = user_validation_1.userValidator.parse(user);
@@ -38,7 +38,7 @@ const postUser = async (req, res) => {
         });
     }
     catch (error) {
-        res.json(error);
+        next(error);
     }
 };
 exports.postUser = postUser;
