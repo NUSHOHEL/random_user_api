@@ -1,7 +1,11 @@
 import { Model } from "mongoose";
 
 
-
+export interface IOrders {
+    productName: string;
+    price: number;
+    quantity: number;
+}
 export interface IUser  {
   userId: number;
   username: string;
@@ -13,17 +17,13 @@ export interface IUser  {
   age: number;
   email: string;
   isActive: boolean;
-  hobbies: [string];
+  hobbies: string[];
   address: {
     street: string;
     city: string;
     country: string;
   };
-  orders: {
-    productName: string;
-    price: number;
-    quantity: number;
-  }[];
+  orders?:IOrders[];
 }
 
 
