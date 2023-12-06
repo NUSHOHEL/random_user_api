@@ -10,8 +10,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/users", userRoute);
-app.get("/",(req,res)=>{
-  res.send("welcome to api")
-})
+
 
 export default app;

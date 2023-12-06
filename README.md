@@ -11,7 +11,7 @@ $ git clone https://github.com/NUSHOHEL/random_user_api.git
 $ cd random_user_api
 ```
 
-> 👉 ** Step 2** - run the following command
+> 👉 **Step 2** - run the following command
 
 ```bash
 tsc
