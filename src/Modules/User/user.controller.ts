@@ -93,22 +93,28 @@ export const deleteUser = async (req: Request, res: Response) => {
     });
   }
 };
-export const updateUserOrders = async (req: Request, res: Response) => {
+export const addOrderById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.userId);
-    await userservice.updateOrder(id, req.body);
+    const newOrder = req.body;
+    await userservice.addOrder(id, newOrder);
     res.json({
       success: true,
       message: "Order created successfully!",
       data: null,
     });
-  } catch (error) {
+  } catch (error:any) {
+    console.log(error.name);
     res.json({
       success: false,
-      message: "User not found",
+      message: `${
+        error.name === "ValidationError"
+          ? error.name
+          : error.name === "CastError" && error.name
+      }`,
       error: {
         code: 404,
-        description: "User not found!",
+        description: `${error.message}`,
       },
     });
   }
@@ -142,12 +148,13 @@ export const totalOrderPrice = async (req: Request, res: Response) => {
       data: price[0],
     });
   } catch (error) {
+    console.log(error);
     res.json({
       success: false,
-      message: "User not found",
+      message: error,
       error: {
         code: 404,
-        description: "User not found!",
+        description: error,
       },
     });
   }

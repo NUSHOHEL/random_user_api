@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const userValidator = z.object({
   userId: z.number(),
@@ -20,5 +20,5 @@ export const userValidator = z.object({
       price: z.number(),
       quantity: z.number(),
     })
-  ),
+  ).optional(),
 });

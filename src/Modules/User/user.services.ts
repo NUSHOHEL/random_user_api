@@ -41,17 +41,13 @@ export const deleteAUser = async (id: number) => {
     throw new Error("user doesn't exist");
   }
 };
-export const updateOrder = async (id: number, updatedOrder: IOrders) => {
-  const user = await User.isUserExist(id);
-  if (user) {
-    return await User.updateOne(
-      { userId: id },
-      { $push: { orders: updatedOrder } },
-      { runValidators: true }
-    );
-  } else {
-    throw new Error("user doesn't exist");
-  }
+export const addOrder = async (id: number, newOrder: IOrders) => {
+  const updatedOrder = await User.findOneAndUpdate(
+    { userId: id },
+    { $push: { orders: newOrder } },
+    { runValidators: true, upsert: true, new: true }
+  );
+  return updatedOrder;
 };
 export const findOrders = async (id: number) => {
   const user = await User.isUserExist(id);
@@ -61,7 +57,9 @@ export const findOrders = async (id: number) => {
     throw new Error("user doesn't exist");
   }
 };
-export const totalPrice = async (id: number): Promise<{ totalOrderPrice: number }[]> => {
+export const totalPrice = async (
+  id: number
+): Promise<{ totalOrderPrice: number }[]> => {
   const user = await User.isUserExist(id);
   if (user) {
     const result = await User.aggregate([

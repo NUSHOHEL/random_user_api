@@ -10,6 +10,6 @@ router
   .get(userController.getUserById)
   .put(userController.updateUserByid)
   .delete(userController.deleteUser);
-router.route("/:userId/orders").put(userController.updateUserOrders).get(userController.findUserOrders);
+router.route("/:userId/orders").put(userController.addOrderById).get(userController.findUserOrders);
 router.get("/:userId/orders/total-price",userController.totalOrderPrice)
 export default router;
