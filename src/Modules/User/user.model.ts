@@ -4,8 +4,8 @@ import { IUser, staticMethos } from "./user.interface";
 
 const userSchema = new mongoose.Schema<IUser>(
   {
-    userId: { type: Number, required: true },
-    username: { type: String, required: true },
+    userId: { type: Number, required: true, unique: true },
+    username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     fullName: {
       type: {
