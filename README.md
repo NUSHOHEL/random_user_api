@@ -4,7 +4,7 @@ This is simple nodeJs rest api. it's created using nodeJs,mongoose, expressJs, t
 
 ### Instructions
 
-> 👉 **Step 1** - Download the code from the GH repository (using `GIT`)
+> 👉 **Step 1** - Clone the code from the GH repository (using `GIT`)
 
 ```bash
 $ git clone https://github.com/NUSHOHEL/random_user_api.git
@@ -42,34 +42,30 @@ Now you can do a lot of fun by using following API endpoint.keep in mind that fo
 
 ### 1. Create a new user
 
-- Endpoint: **POST /api/users**
-- Request Body: put the data exactly as data model
-- Response: You will get newly created user but without password
+        - Endpoint: **POST /api/users**
+        - Request Body: put the data exactly as data model
+        - Response: You will get newly created user but without password
 
 ### 2. Retrieve a list of all users
 
-- Endpoint: **GET /api/users**
-- Response: You will get all the user with this property `username`, `fullName`, `age`, `email`, `address` .
+        - Endpoint: **GET /api/users**
+        - Response: You will get all the user with this property `username`, `fullName`, `age`, `email`, `address` .
 
 ### 3. Retrieve a specific user by ID
 
-- Endpoint: **GET /api/users/:userId**
-
-- Response: You will get specific user without password
+    - Endpoint: **GET /api/users/:userId**
+    - Response: You will get specific user without password
 
 ### 4. Update user information
 
-- Endpoint: **PUT /api/users/:userId**
-
-- Request Body: put the data exactly as data model
-
-- Response: you'll get updated user 
+    - Endpoint: **PUT /api/users/:userId**
+    - Request Body: put the data exactly as data model
+    - Response: you'll get updated user 
 
 ### 5. Delete a user
 
-- Endpoint: **DELETE /api/users/:userId**
-
-- Response: will give a success without data
+    - Endpoint: **DELETE /api/users/:userId**
+    - Response: will give a success without data
 
 ### 6. Add new product to Order
     - Endpoint: **PUT /api/users/:userId/orders**
@@ -83,5 +79,5 @@ Now you can do a lot of fun by using following API endpoint.keep in mind that fo
 
 ### 8. **Calculate Total Price of Orders for a Specific User**
 
-- Endpoint: **GET /api/users/:userId/orders/total-price**
-- Response: you'll get total price of all orders
+    - Endpoint: **GET /api/users/:userId/orders/total-price**
+    - Response: you'll get total price of all orders
