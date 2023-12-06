@@ -16,7 +16,7 @@ export const getAUser = async (id: number) => {
   if (user) {
     return user;
   } else {
-    throw new Error("user Dosen't exist");
+    throw new Error("User not found!");
   }
 };
 export const updateUser = async (data: IUser, id: number) => {
@@ -30,7 +30,7 @@ export const updateUser = async (data: IUser, id: number) => {
     ).select("-password");
     return updatedUser;
   } else {
-    throw new Error("user doesn't exist");
+    throw new Error("User not found!");
   }
 };
 export const deleteAUser = async (id: number) => {
@@ -38,7 +38,7 @@ export const deleteAUser = async (id: number) => {
   if (user) {
     return await User.deleteOne({ userId: id });
   } else {
-    throw new Error("user doesn't exist");
+    throw new Error("User not found!");
   }
 };
 export const addOrder = async (id: number, newOrder: IOrders) => {
@@ -54,7 +54,7 @@ export const findOrders = async (id: number) => {
   if (user) {
     return await User.findOne({ userId: id }, "orders -_id");
   } else {
-    throw new Error("user doesn't exist");
+    throw new Error("User not found!");
   }
 };
 export const totalPrice = async (

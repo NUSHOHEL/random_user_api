@@ -40,10 +40,10 @@ export const getUserById = async (req: Request, res: Response) => {
   } catch (error) {
     res.json({
       success: false,
-      message: "User not found",
+      message: error,
       error: {
         code: 404,
-        description: "User not found!",
+        description: error,
       },
     });
   }
@@ -62,10 +62,10 @@ export const updateUserByid = async (req: Request, res: Response) => {
   } catch (error) {
     res.json({
       success: false,
-      message: "User not found",
+      message: error,
       error: {
         code: 404,
-        description: "User not found!",
+        description: error,
       },
     });
   }
@@ -85,10 +85,10 @@ export const deleteUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.json({
       success: false,
-      message: "User not found",
+      message: error,
       error: {
         code: 404,
-        description: "User not found!",
+        description: error,
       },
     });
   }
@@ -103,7 +103,7 @@ export const addOrderById = async (req: Request, res: Response) => {
       message: "Order created successfully!",
       data: null,
     });
-  } catch (error:any) {
+  } catch (error: any) {
     console.log(error.name);
     res.json({
       success: false,
@@ -130,10 +130,10 @@ export const findUserOrders = async (req: Request, res: Response) => {
   } catch (error) {
     res.json({
       success: false,
-      message: "User not found",
+      message: error,
       error: {
         code: 404,
-        description: "User not found!",
+        description: error,
       },
     });
   }
