@@ -12,11 +12,7 @@ $ cd random_user_api
 ```
 > 👉 **Step 2** - Change the mongodb connection string and port to your connection string and port
 
-<<<<<<< HEAD
-> 👉 **Step 2** - run the following command
-=======
 > 👉 **Step 3** - run the following command
->>>>>>> d429356a4ba5f81fefd2320d09db9447101d17a8
 
 ```bash
 tsc
