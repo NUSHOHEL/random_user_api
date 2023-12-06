@@ -84,4 +84,4 @@ Now you can do a lot of fun by using following API endpoint.keep in mind that fo
 ### 8. **Calculate Total Price of Orders for a Specific User**
 
 - Endpoint: **GET /api/users/:userId/orders/total-price**
-- Response: Total price of all orders for the specified user or, If you can't find information about the user, show a clear message. Use either `instance` or `static` method to determine if the user exist or not (Use the [format for error messages](#sample-error-response) that is given below.)
+- Response: you'll get total price of all orders
