@@ -42,10 +42,10 @@ export const deleteAUser = async (id: number) => {
   }
 };
 export const addOrder = async (id: number, newOrder: IOrders) => {
-  const updatedOrder = await User.findOneAndUpdate(
+  const updatedOrder = await User.updateOne(
     { userId: id },
     { $push: { orders: newOrder } },
-    { runValidators: true, upsert: true, new: true }
+    { runValidators: true, new: true }
   );
   return updatedOrder;
 };

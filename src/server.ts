@@ -4,10 +4,10 @@ import app from "./app";
 
 async function main() {
   await mongoose
-    .connect(process.env.url as string)
+    .connect(process.env.LocalUrl as string)
     .then(() => console.log("database connected"));
 }
 app.listen(process.env.port, () => {
-  console.log(`Example app listening on port ${process.env.port}`);
+  console.log(`Server is running at http://localhost:${process.env.port}`);
 });
 main();

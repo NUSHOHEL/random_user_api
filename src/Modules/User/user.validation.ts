@@ -14,11 +14,22 @@ export const userValidator = z.object({
     city: z.string(),
     country: z.string(),
   }),
-  orders: z.array(
-    z.object({
-      productName: z.string(),
-      price: z.number(),
-      quantity: z.number(),
-    })
-  ).optional(),
+  orders: z
+    .array(
+      z.object({
+        productName: z.string({
+          required_error: "ProductName is required",
+          invalid_type_error: "ProductName must be a String",
+        }),
+        price: z.number({
+          required_error: "Price is required",
+          invalid_type_error: "Price must be a number",
+        }),
+        quantity: z.number({
+          required_error: "Quantity is required",
+          invalid_type_error: "Quantity must be a number",
+        }),
+      })
+    )
+    .optional(),
 });

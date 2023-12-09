@@ -27,6 +27,6 @@ export interface IUser  {
 }
 
 
-export interface staticMethos extends Model<IUser> {
+export interface staticMethods extends Model<IUser> {
   isUserExist(id:number):Promise<IUser | null>;
 }

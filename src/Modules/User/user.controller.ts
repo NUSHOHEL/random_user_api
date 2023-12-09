@@ -1,12 +1,8 @@
-import { NextFunction, Request, Response } from "express";
+import { RequestHandler } from "express";
 import * as userservice from "./user.services";
 import { userValidator } from "./user.validation";
 
-export const postUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const postUser: RequestHandler = async (req, res, next) => {
   try {
     const user = req.body;
     const validUser = userValidator.parse(user);
@@ -18,17 +14,22 @@ export const postUser = async (
     });
   } catch (error) {
     next(error);
+    
   }
 };
-export const getAllUser = async (req: Request, res: Response) => {
-  const result = await userservice.allUser();
-  res.json({
-    success: true,
-    message: "Users fetched successfully!",
-    data: result,
-  });
+export const getAllUser: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await userservice.allUser();
+    res.json({
+      success: true,
+      message: "Users fetched successfully!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserById: RequestHandler = async (req, res, next) => {
   const id = Number(req.params.userId);
   try {
     const result = await userservice.getAUser(id);
@@ -38,21 +39,15 @@ export const getUserById = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error,
-      error: {
-        code: 404,
-        description: error,
-      },
-    });
+    next(error);
   }
 };
-export const updateUserByid = async (req: Request, res: Response) => {
+export const updateUserByid: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.userId);
     const updateData = req.body;
-    const result = await userservice.updateUser(updateData, id);
+    const validUser = userValidator.parse(updateData);
+    const result = await userservice.updateUser(validUser, id);
 
     res.json({
       success: true,
@@ -60,66 +55,44 @@ export const updateUserByid = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error,
-      error: {
-        code: 404,
-        description: error,
-      },
-    });
+    next(error);
   }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.userId);
 
-    await userservice.deleteAUser(id);
+    const data = await userservice.deleteAUser(id);
 
     res.json({
       success: true,
       message: "User deleted successfully!",
-      data: null,
+      data: data.deletedCount ? null : "something went wrong!",
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error,
-      error: {
-        code: 404,
-        description: error,
-      },
-    });
+    next(error);
   }
 };
-export const addOrderById = async (req: Request, res: Response) => {
+export const addOrderById: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.userId);
     const newOrder = req.body;
-    await userservice.addOrder(id, newOrder);
-    res.json({
-      success: true,
-      message: "Order created successfully!",
-      data: null,
-    });
-  } catch (error: any) {
-    console.log(error.name);
-    res.json({
-      success: false,
-      message: `${
-        error.name === "ValidationError"
-          ? error.name
-          : error.name === "CastError" && error.name
-      }`,
-      error: {
-        code: 404,
-        description: `${error.message}`,
-      },
-    });
+    const result = await userservice.addOrder(id, newOrder);
+    if (result.modifiedCount) {
+      res.json({
+        success: true,
+        message: "Order created successfully!",
+        data: null,
+      });
+    } else {
+      throw new Error("User not Found!");
+    }
+  } catch (error) {
+    next(error);
   }
 };
-export const findUserOrders = async (req: Request, res: Response) => {
+export const findUserOrders: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.userId);
     const orders = await userservice.findOrders(id);
@@ -128,17 +101,10 @@ export const findUserOrders = async (req: Request, res: Response) => {
       data: orders,
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error,
-      error: {
-        code: 404,
-        description: error,
-      },
-    });
+    next(error);
   }
 };
-export const totalOrderPrice = async (req: Request, res: Response) => {
+export const totalOrderPrice: RequestHandler = async (req, res, next) => {
   const id = Number(req.params.userId);
   try {
     const price = await userservice.totalPrice(id);
@@ -148,14 +114,6 @@ export const totalOrderPrice = async (req: Request, res: Response) => {
       data: price[0],
     });
   } catch (error) {
-    console.log(error);
-    res.json({
-      success: false,
-      message: error,
-      error: {
-        code: 404,
-        description: error,
-      },
-    });
+    next(error);
   }
 };

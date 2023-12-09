@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-import { IUser, staticMethos } from "./user.interface";
+import { IUser, staticMethods } from "./user.interface";
 
 const userSchema = new mongoose.Schema<IUser>(
   {
@@ -66,4 +66,4 @@ userSchema.post("save", async (doc, next) => {
 
   next();
 });
-export default mongoose.model<IUser, staticMethos>("User", userSchema);
+export default mongoose.model<IUser, staticMethods>("User", userSchema);
