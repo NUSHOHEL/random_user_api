@@ -4,7 +4,7 @@ import app from "./app";
 
 async function main() {
   await mongoose
-    .connect(process.env.LocalUrl as string)
+    .connect(process.env.url as string)
     .then(() => console.log("database connected"));
 }
 app.listen(process.env.port, () => {
