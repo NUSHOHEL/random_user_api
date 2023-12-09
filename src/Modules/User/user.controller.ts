@@ -14,7 +14,6 @@ export const postUser: RequestHandler = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-    
   }
 };
 export const getAllUser: RequestHandler = async (req, res, next) => {
@@ -98,6 +97,7 @@ export const findUserOrders: RequestHandler = async (req, res, next) => {
     const orders = await userservice.findOrders(id);
     res.json({
       success: true,
+      message: "Order fetched successfully!",
       data: orders,
     });
   } catch (error) {
