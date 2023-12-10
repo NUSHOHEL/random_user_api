@@ -14,9 +14,7 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
       {
         const errorMessgae = JSON.parse(error.message);
         const detailsMessage = errorMessgae.map(
-          (err: Record<string, string>) => {
-            return `${err.path} is ${err.message}`;
-          }
+          (err: Record<string, string>) => `${err.path} is ${err.message}`
         );
         res.status(404).json(resHandler(error.name, detailsMessage));
       }
@@ -25,15 +23,7 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
       {
         const { kind, value, path } = error.reason;
         const message =
-          path +
-          " " +
-          "required to be" +
-          " " +
-          kind +
-          " " +
-          "got" +
-          " " +
-          value;
+          `${path} ` + `required to be` + ` ${kind} ` + `got` + ` ${value}`;
         res.json(resHandler(error.name, message));
       }
       break;
@@ -49,13 +39,12 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
       break;
     case "ValidationError":
       {
-        const message =
-          error.errors[Object.keys(error.errors)[0]].properties.message;
+        const { message } =
+          error.errors[Object.keys(error.errors)[0]].properties;
         res.json(resHandler(error.name, message));
       }
       break;
     default:
       res.status(404).json(resHandler(error.message, error.message));
   }
-
 };

@@ -1,6 +1,6 @@
 import express from "express";
 
-import * as userController from "./user.controller"
+import * as userController from "./user.controller";
 
 const router = express.Router();
 
@@ -10,6 +10,9 @@ router
   .get(userController.getUserById)
   .put(userController.updateUserByid)
   .delete(userController.deleteUser);
-router.route("/:userId/orders").put(userController.addOrderById).get(userController.findUserOrders);
-router.get("/:userId/orders/total-price",userController.totalOrderPrice)
+router
+  .route("/:userId/orders")
+  .put(userController.addOrderById)
+  .get(userController.findUserOrders);
+router.get("/:userId/orders/total-price", userController.totalOrderPrice);
 export default router;

@@ -1,12 +1,11 @@
 import { Model } from "mongoose";
 
-
 export interface IOrders {
-    productName: string;
-    price: number;
-    quantity: number;
+  productName: string;
+  price: number;
+  quantity: number;
 }
-export interface IUser  {
+export interface IUser {
   userId: number;
   username: string;
   password: string;
@@ -23,10 +22,9 @@ export interface IUser  {
     city: string;
     country: string;
   };
-  orders?:IOrders[];
+  orders?: IOrders[];
 }
 
-
 export interface staticMethods extends Model<IUser> {
-  isUserExist(id:number):Promise<IUser | null>;
+  isUserExist(id: number): Promise<IUser | null>;
 }
